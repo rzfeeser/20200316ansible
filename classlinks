@@ -2,4 +2,11 @@ Class Links:
 - Ansible Documentation:
   https://docs.ansible.com
   
--
+- Ansible Source Code on GitHub:
+  https://github.com/ansible/ansible
+  
+- Ansible Module list:
+  https://docs.ansible.com/ansible/latest/modules/modules_by_category.html
+  
+- Vim Adventures: # learning VIM
+  https://vim-adventures.com/
