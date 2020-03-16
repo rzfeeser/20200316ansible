@@ -10,3 +10,18 @@ Class Links:
   
 - Vim Adventures: # learning VIM
   https://vim-adventures.com/
+  
+- Ansible Setup module:  # this is gather_facts
+  https://docs.ansible.com/ansible/latest/modules/setup_module.html
+
+- Ansible apt module:
+  https://docs.ansible.com/ansible/latest/modules/apt_module.html
+  
+- Ansible yum module:
+  https://docs.ansible.com/ansible/latest/modules/yum_module.html
+
+- Using Variables in Ansible:
+  https://docs.ansible.com/ansible/latest/user_guide/playbooks_variables.html
+  
+- YAML spec:
+  https://yaml.org/spec/1.2/spec.html
