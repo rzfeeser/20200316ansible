@@ -1,0 +1,21 @@
+---
+- name: Our first play
+  hosts: planetexpress
+  gather_facts: yes
+
+  tasks:
+
+    - name: Install steam locomotive on Ubuntu machines
+      apt:      # module we want to use
+        name: sl   # is is the software to install from the APT store
+        state: present   # state of the software
+      become: yes # run as sudo
+      when: ansible_distribution == "Ubuntu"
+
+    - name: Install steam locomotive on CentOS machines
+      yum:
+        name: sl
+        state: present
+      become: yes
+      when: ansible_distribution == "CentOS"
+
