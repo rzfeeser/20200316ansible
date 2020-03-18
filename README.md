@@ -10,18 +10,16 @@ Questions:
 
 Labs: # Available in lms.alta3.com
 
-
-
 - Wednesday Assignment:
     - Lab 33 - Understanding differences between v2.8 and v2.9
                               for ansible_connection: network_cli
-    - Lab 50 - Ansible and textFSM (by special request!)
     - Lab 41 - Ansible Galaxy, using, and making a role
     - Lab 44 - Palo Alto (read over, and ask questions after review)
     - Lab 36 - Working with Variables (manipulation, Python in Playbooks, 
                                         uri module for RESTful APIs, and loops)
     - Lab 28 - Handlers - Build a web server!
     - Lab 30 - Reading lab (15 to 20 minutes) <- how playbooks execute
+    - Lab 50 - Ansible and textFSM (by special request!)
 
 - Tuesday Assignment:
     - Lab 37 - Script Module
