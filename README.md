@@ -1,14 +1,13 @@
 # 20200316ansible
-- name: Ansible Essentials
-  instructor: Zach Feeser
-    name: 
-    email: rzfeeser@alta3.com
-  class: 8:30 to 5:00
-  repo: https://github.com/rzfeeser/20200316ansible  # create on 1st break
+**name:** Ansible Essentials
+**instructor:** Zach Feeser
+**email:** rzfeeser@alta3.com
+**class:** 8:30 to 5:00
+**repo:** https://github.com/rzfeeser/20200316ansible  # create on 1st break
   
-Questions:
+###Questions:
 
-Labs: # Available in lms.alta3.com
+### Lab manual available @ lms.alta3.com
 
 - Wednesday Assignment:
     - Lab 33 - Understanding differences between v2.8 and v2.9
