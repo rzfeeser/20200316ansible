@@ -1,0 +1,20 @@
+---
+- name: CHANGE CONFIGURATION
+  hosts: allvendors
+  gather_facts: false
+  become: yes # run the entire playbook as enable
+  connection: network_cli # required mode
+
+  tasks:
+
+    - name: LOAD NTP CONFIGURATION
+      cli_config:
+        config: "{{ntp_commands}}"
+      notify:
+        - purple walrus
+
+  handlers:
+
+    - name: purple walrus
+      cli_command:
+        command: "{{save}}"

@@ -1,0 +1,57 @@
+---
+- name: A playbook to backup arista switches
+  hosts: all
+  gather_facts: no     ## setting this to YES is a 2.9 introduction
+                       ## historically this would FAIL or collect
+                       ## facts about the CONTROLLER
+
+
+  # these vars can be mapped other places
+  # but need to be mapped for ansible to
+  # connect to Arista switches
+  vars:
+          ansible_connection: network_cli
+          ansible_network_os: eos
+          ansible_become: yes
+          ansible_become_method: enable
+          ansible_user: admin
+          ansible_ssh_pass: alta3
+
+  tasks:
+  # this is the "OLD FASHIONED" way to collect facts about network devices
+  # Every vendor had their own version of "_facts" (they still do!) however in
+  # Version 2.9 and beyond, gather_facts: yes will select the correct _facts module
+  # to run against the devices you target
+  - name: Gather EOS facts
+    eos_facts:
+            gather_subset: all
+
+  - name: What are the facts that were gathered? (throw away task)
+    debug:
+            var: ansible_facts    # or ansible_net_facts is typically the auto assigned var for facts collected
+            verbosity: 1   # this task only runs with -v
+
+  - name: Try to display JUST the config (throw away task)
+    debug:
+            var: ansible_facts.net_config
+            verbosity: 1   # this task only runs with -v
+
+  # this will be created on the CONTROLLER
+  - name: Create a space to backup our config from Arista switches
+    file:
+            path: ~/ans/backup/
+            state: directory
+
+  - name: Figure out the date for timestamping our backup file
+    command: date "+%Y-%m-%d"
+    register: sundial  # this is our variable
+
+  - name: Try to display JUST the value of sundail (throw away task)
+    debug:
+            var: sundial
+            verbosity: 1  # this task only runs with -v
+
+  - name: Write out content to a text file on the local host
+    copy:
+            dest: "~/ans/backup/{{ sundial.stdout }}-{{ inventory_hostname }}.conf.backup"
+            content: "{{ ansible_facts.net_config }}"

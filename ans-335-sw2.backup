@@ -1,0 +1,28 @@
+! Command: show running-config
+! device: ans-335-sw2 (vEOS, EOS-4.22.0F)
+!
+! boot system flash:/vEOS-lab.swi
+!
+transceiver qsfp default-mode 4x10G
+!
+hostname ans-335-sw2
+!
+ntp server 0.us.pool.ntp.org
+!
+spanning-tree mode mstp
+!
+no aaa root
+!
+username admin role network-admin secret sha512 $6$5s1HDUsxrEEM9zND$NL.1QKB8.Jv0luQN2m1FQH/.wj0tVsEOU2v2uOWTUqP3fYR28jbrqJ5ZQ1FpNDWw.jsAlu9afwpXD70OZxXFD0
+!
+interface Management1
+   ip address dhcp
+   dhcp client accept default-route
+!
+no ip routing
+!
+management api http-commands
+   protocol http
+   no shutdown
+!
+end
