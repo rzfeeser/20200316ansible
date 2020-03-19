@@ -1,0 +1,41 @@
+---
+- name: Learn to speak klingon (60 calls per day)
+  gather_facts: no
+  hosts: localhost
+
+  vars_prompt:
+          - name: phrase # this is the var to define
+            prompt: "What is the English phrase to translate into Klingon?"
+            private: no # echo the text back to the user in the clear
+
+  tasks:
+          - name: Learn to speak Klingon!
+            uri:
+                    url: https://api.funtranslations.com/translate/klingon.json
+                    method: POST
+                    body_format: form-urlencoded
+                    body:
+                            text: "{{ phrase }}"
+            register: startrek
+
+          - name: show our results
+            debug:
+                    var: startrek
+                    verbosity: 1
+
+          - name: Show the translated results
+            debug:
+                    var: startrek.json.contents
+
+          - name: Ensure a home exists for the klingon dictionary
+            file:
+                    state: directory
+                    path: ~/ans/files/   # all intermediate sub directories will be created
+
+          - name: write out the output
+            lineinfile:
+                    line: "(English) {{ startrek.json.contents.text }} (Klingon) {{ startrek.json.contents.translated }}\n"
+                    path: ~/ans/files/klingon_dictionary.txt
+                    create: yes # creates the file if it does not yet exist
+
+

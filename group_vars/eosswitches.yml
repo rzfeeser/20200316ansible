@@ -1,0 +1,9 @@
+backup: "show running-config"
+save: "copy running-config startup-config"
+ntp_commands: "ntp server 3.us.pool.ntp.org"
+commandtoshowinterfaces: "show ip int br"
+
+ansible_become_method: enable
+ansible_user: admin
+ansible_ssh_pass: alta3
+ansible_network_os: eos

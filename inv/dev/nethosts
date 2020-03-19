@@ -6,29 +6,14 @@ nxosswitches
 vyosswitches
 
 [eosswitches]
-ans-335-sw1  ansible_ssh_pass=alta3  ansible_user=admin
-ans-335-sw2  ansible_ssh_pass=alta3  ansible_user=admin
-
-[eosswitches:vars]
-ansible_network_os=eos
-ansible_become_method=enable
-commandtoshowinterfaces="show ip int br"
-backup="show running-config"
-save="copy running-config startup-config"
-ntp_commands="ntp server 0.us.pool.ntp.org"
-
-
-
+ans-335-sw1
+ans-335-sw2
 
 ; additional switch vendors can be described within their own group
 ; cisco ios switches could be described below
 [iosswitches]
 ;ans-###-sw3
 ;ans-###-sw4
-;
-;[iosswitches:vars]
-;ansible_network_os=ios
-;commandtoshowinterfaces="show ip int br"
 
 [junosswitches]
 ;ans-###-sw5
@@ -37,7 +22,7 @@ ntp_commands="ntp server 0.us.pool.ntp.org"
 ;[junosswitches:vars]
 ;ansible_network_os=junos
 ;commandtoshowinterfaces="show ip int br"
-;backup="show configuration"
+;
 [nxosswitches]
 ;ans-###-sw6
 ;ans-###-sw7

@@ -1,0 +1,39 @@
+---
+## Our goal is to create a playbook that perform pre-checks, changes, and post-checks.
+## Upon a failure / error, the playbook will "ROLLS BACK" any changes it has made thus far.
+## This playbook can serve as a template for constructing 'intelligent' playbooks
+## within your enterprise
+
+ - name: A playbook demonstrating Error Handling techniques
+   hosts: planetexpress:!farnsworth
+
+   tasks:
+           - name: A block of tasks to perform
+             block: 
+                  - name: My first task within the block 
+                    shell: "echo 'My single task ran' > example.txt"
+                
+                  - name: My second task within the block
+                    shell: "echo 'My second task ran' >> example.txt"
+                
+                  - name: My third task within the block (produces an error)
+                    shell: "/bin/false" # This always returns a false value
+
+                    #             rescue:
+                    #                  - name: This is how you stand back up
+                    #                    shell: "echo 'My rescue code ran. Maybe it undoes whatever the block tried to do' >> example.txt"
+
+
+           - name: A second block of tasks to perform
+             block:
+                  - name: This is my first task within the second block
+                    shell: "echo 'My single task in the SECOND block ran' >> example.txt"
+
+
+
+
+
+
+
+                    #             always:
+                    #                - shell: "echo 'This always runs. Maybe it is a commit, or an entry in a log' >> example.txt"
