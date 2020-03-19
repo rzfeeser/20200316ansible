@@ -1,5 +1,5 @@
 ---
-- name: CHANGE CONFIGURATION
+- name: change switch configuration
   hosts: allvendors
   gather_facts: false
   become: yes # run the entire playbook as enable
@@ -7,14 +7,15 @@
 
   tasks:
 
-    - name: LOAD NTP CONFIGURATION
+    - name: load new NTP configuration
       cli_config:
         config: "{{ntp_commands}}"
       notify:
-        - purple walrus
+        - save and commit
 
   handlers:
-
-    - name: purple walrus
+    # handlers only run if a task runs that
+    # notifies the handler to run
+    - name: save and commit  # this name matches the notify
       cli_command:
         command: "{{save}}"
