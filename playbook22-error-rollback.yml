@@ -10,7 +10,9 @@
 
    vars:
            # list of apps to install (seperated by commas and available in the apt repo)
-           apps_to_install: [apache2]
+           # apached = apache http server
+           # vsftpd = sftp server
+           apps_to_install: [apache2, vsftpd]
 
    tasks:
            ## our job is to install some software on ONLY Debian hosts within the network
@@ -32,34 +34,67 @@
            ## this is the block containing the work we actually want to do
            - name: MAINTENANCE PHASE
              block:
-                  - name: Install application(s) to our remote host(s)
+                  - name: Install services(s) to our remote host(s)
                     apt:
                             state: present
                             name: "{{ apps_to_install }}"
+                    become: yes
+
+                  - name: Turn up the service(s) installed on our remote host(s)
+                    service:
+                            name: "{{ item }}"
+                            state: started
+                    loop: "{{ apps_to_install }}"
+                    become: yes
 
              ## this rescue only runs if the BLOCK fails
              rescue:
-                  - name: Remove application(s) on our remote host(s)
+                  - name: Remove services(s) on our remote host(s)
                     apt:
                             state: absent
                             name: "{{ apps_to_install }}"
-
+                    become: yes
 
                   - name: MAINTENANCE PHASE - FAILED
                     fail:
-                            msg: "PRECHECK PHASE - FAILED. Rollback complete. Exiting..." 
+                            msg: "MAINTENANCE PHASE - FAILED. Rollback complete. Exiting..." 
 
            - name: POSTCHECK PHASE
              block:
+
                   - name: populate service facts
                     service_facts:
 
                   - name: Print out the service facts 
                     debug:
                             var: ansible_facts.services
+                  
+                  - name: Ensure all of the new services installed
+                    fail:
+                            msg: "Ansible has detected not all services have installed."
+                    when: ansible_facts.services.get(item).state != "running"
+                    loop: "{{ apps_to_install }}"
 
+             ## this rescue only runs if the BLOCK fails
+             rescue:
+                  - name: Remove services(s) on our remote host(s)
+                    apt:
+                            state: absent
+                            name: "{{ apps_to_install }}"
+                    become: yes
 
+                  - name: MAINTENANCE PHASE - FAILED
+                    fail:
+                            msg: "POSTCHECK PHASE - FAILED. Rollback complete. Exiting..."         
 
-
-                    #             always:
-                    #                - shell: "echo 'This always runs. Maybe it is a commit, or an entry in a log' >> example.txt"
+            ## in a real deployment you might consider an ALWAYS section to provide the results
+            ## of how the playbook ran
+            # always:
+            #      - name: EXAMPLE - Email your team the results of the playbook
+            #        mail:   # mail module is used to send SMTP (email)
+            #           host:
+            #           port:
+            #           password:
+            #           username:
+            #           subject:
+            #           body: send an email with results via the mail module   
