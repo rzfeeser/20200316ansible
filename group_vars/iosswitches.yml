@@ -1,0 +1,9 @@
+backup: "show running-config"
+save: "write memory"
+ntp_commands: "ntp server 3.us.pool.ntp.org"
+commandtoshowinterfaces: "show ip int br"
+
+ansible_become_method: enable
+ansible_user: cisco_admin
+ansible_ssh_pass: ciscopass123
+ansible_network_os: ios

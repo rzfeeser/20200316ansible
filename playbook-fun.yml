@@ -1,0 +1,30 @@
+---
+- name: change switch configuration
+  hosts: eosswitches:iosswitches   # these two groups
+  gather_facts: false
+  become: yes # run the entire playbook as enable
+  connection: network_cli # required mode
+
+  tasks:
+
+    - name: load new NTP configuration
+      cli_config:
+        config: "{{ntp_commands}}"
+      notify:
+        - save and commit
+
+    - name: debug will run BEFORE the handler
+      debug:
+              msg: "Throw away message to demo that I run BEFORE the handler"
+
+  handlers:
+    # handlers only run if a task runs that
+    # notifies the handler to run
+    - name: save and commit  # this name matches the notify
+      cli_command:
+        command: "{{save}}"
+
+    - name: I will never run
+      debug:
+              msg: "I will never run because I am never called :(((("
+
