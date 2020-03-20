@@ -12,7 +12,7 @@
            # list of apps to install (seperated by commas and available in the apt repo)
            # apached = apache http server
            # vsftpd = sftp server
-           apps_to_install: [apache2, vsftpd]
+           apps_to_install: [apache2, vsftpd, fail2ban]
 
    tasks:
            ## our job is to install some software on ONLY Debian hosts within the network
