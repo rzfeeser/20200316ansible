@@ -9,6 +9,17 @@
 
 ### Lab manual available @ lms.alta3.com
 
+- Thursday Assignment:
+    - Lab 26 **STOP AT STEP 35** - YAML, JSON, Dynamic, and Cloud Inventories
+    - Lab 48 - Ansible Callback Plugins
+    
+    - Lab 34 **OPTIONAL** - Vendor specific network playbook
+    - Lab 29 - Error Handling (Block / Rescue / Always)
+    - Lab 39 - Ansible Playbook Output Logging
+    - Lab 49 - Creating an Ansible Module with Python
+    - Lab 42 - Ansible Vault
+    - Lab 38 - Lookup Plugin
+
 - Wednesday Assignment:
     - Lab 33 - Understanding differences between v2.8 and v2.9
                               for ansible_connection: network_cli
